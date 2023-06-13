@@ -20,10 +20,6 @@ class CartScreen extends StatelessWidget {
       },
     ).toList();
 
-    if (kDebugMode) {
-      print(products);
-    }
-
     var cart = products.reversed.toList();
 
     return Scaffold(

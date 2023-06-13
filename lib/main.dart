@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onlineshop/provider/providers.dart';
 import 'package:onlineshop/screen/screens.dart';
-import 'package:provider/provider.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +18,7 @@ void main() async {
       ChangeNotifierProvider(create: (context) => WomenShoesNotifier()),
       ChangeNotifierProvider(create: (context) => KidsShoesNotifier()),
       ChangeNotifierProvider(create: (context) => PageIndicator()),
-      //ChangeNotifierProvider(create: (context) => ChoiceClipSelection()),
+      ChangeNotifierProvider(create: (context) => CartNotifier()),
     ],
     child: MaterialApp(
       title: 'demo',
