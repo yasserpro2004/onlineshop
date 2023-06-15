@@ -81,18 +81,24 @@ class ProductCardList extends StatelessWidget {
                                 size: Sizes.p16,
                                 fontWeight: FontWeight.bold,
                               ),
-                              Row(
-                                children: [
-                                  const LabelWidget(
-                                      label: 'Sizes',
-                                      size: Sizes.p16,
-                                      fontWeight: FontWeight.w600),
-                                  LabelWidget(
-                                      label: sizes.toString(),
-                                      size: Sizes.p16,
-                                      fontWeight: FontWeight.w600)
-                                ],
-                              )
+                              Builder(builder: (context) {
+                                if (controls is CartControl) {
+                                  return Row(
+                                    children: [
+                                      const LabelWidget(
+                                          label: 'Sizes',
+                                          size: Sizes.p16,
+                                          fontWeight: FontWeight.w600),
+                                      LabelWidget(
+                                          label: sizes.toString(),
+                                          size: Sizes.p16,
+                                          fontWeight: FontWeight.w600)
+                                    ],
+                                  );
+                                } else {
+                                  return Container();
+                                }
+                              })
                             ],
                           ),
                         ],
@@ -103,28 +109,34 @@ class ProductCardList extends StatelessWidget {
                 ],
               ),
             ),
-            Positioned(
-                bottom: 0,
-                child: GestureDetector(
-                  onTap: () {
-                    context
-                        .read<CartNotifier>()
-                        .removeWholeProductFromCart(controls.productID);
-                  },
-                  child: Container(
-                    height: 35,
-                    width: 35,
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(10),
-                            bottomLeft: Radius.circular(10)),
-                        color: Colors.black),
-                    child: const Icon(
-                      Icons.delete,
-                      color: Colors.white,
-                    ),
-                  ),
-                ))
+            Builder(builder: (context) {
+              if (controls is CartControl) {
+                return Positioned(
+                    bottom: 0,
+                    child: GestureDetector(
+                      onTap: () {
+                        context
+                            .read<CartNotifier>()
+                            .removeWholeProductFromCart(controls.productID);
+                      },
+                      child: Container(
+                        height: 35,
+                        width: 35,
+                        decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(10),
+                                bottomLeft: Radius.circular(10)),
+                            color: Colors.black),
+                        child: const Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ));
+              } else {
+                return Container();
+              }
+            }),
           ],
         ),
       ),

@@ -14,4 +14,5 @@ class AppDatabasesName {
   static const String cartBoxName = 'cart_box';
   static const String wishlistBoxName = 'wishlist_box';
   static const String cartAdaptorName = 'CartItemAdapter';
+  static const String wishlistAdaptorName = 'WishlistItemAdapter';
 }

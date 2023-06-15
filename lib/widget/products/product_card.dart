@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onlineshop/config/constant/app_sizes.dart';
+import 'package:onlineshop/provider/providers.dart';
 import 'package:onlineshop/screen/products/product_details.dart';
 import '../../models/models.dart';
 import '../widgets.dart';
@@ -11,6 +12,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool selected = true;
+    //bool isFavorite = false;
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 10, bottom: 8),
       child: ShadowWidget(
@@ -24,31 +26,44 @@ class ProductCard extends StatelessWidget {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Stack(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      //context.read<ChoiceClipSelection>().sizes = product.sizes;
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              ProductDetails(product: product),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * .23,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: NetworkImage(product.imageUrl[0])),
-                      ),
+                  Container(
+                    height: MediaQuery.of(context).size.height * .23,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: NetworkImage(product.imageUrl[0])),
                     ),
                   ),
                   Positioned(
                     top: 10,
                     right: 10,
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: const Icon(Icons.favorite_border_outlined),
+                    child: Consumer<WishlistNotifier>(
+                      builder: (context, wishlistNotifier, child) {
+                        return GestureDetector(
+                          onTap: () {
+                            final wishlistItem = WishlistItem()
+                              ..productID = product.id
+                              ..name = product.name
+                              ..category = product.category
+                              ..imageURL = product.imageUrl[0]
+                              ..price = double.parse(product.price);
+
+                            bool isAdded = !wishlistNotifier
+                                .getFavoriteProductByKey(product.id);
+                            wishlistNotifier.updateData(wishlistItem, isAdded);
+                          },
+                          child: wishlistNotifier
+                                  .getFavoriteProductByKey(product.id)
+                              ? const Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                  size: Sizes.p36,
+                                )
+                              : const Icon(
+                                  Icons.favorite_border_outlined,
+                                  size: Sizes.p36,
+                                ),
+                        );
+                      },
                     ),
                   ),
                 ],
@@ -58,12 +73,23 @@ class ProductCard extends StatelessWidget {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      LabelWidget(
-                        label: product.name,
-                        size: Sizes.p28,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontHeight: 1.1,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  ProductDetails(product: product),
+                            ),
+                          );
+                        },
+                        child: LabelWidget(
+                          label: product.name,
+                          size: Sizes.p28,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontHeight: 1.1,
+                        ),
                       ),
                       LabelWidget(
                         label: product.category,

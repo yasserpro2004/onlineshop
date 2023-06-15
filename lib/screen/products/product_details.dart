@@ -84,10 +84,35 @@ class ProductDetails extends StatelessWidget {
                         Positioned(
                           right: Sizes.p16,
                           top: MediaQuery.of(context).size.height * 0.08,
-                          child: const NavBarIcon(
-                            ico: Icons.favorite_border,
-                            iconColor: Colors.grey,
-                          ),
+                          child: Consumer<WishlistNotifier>(
+                              builder: (context, wishlistNotifier, child) {
+                            return GestureDetector(
+                              onTap: () {
+                                final wishlistItem = WishlistItem()
+                                  ..productID = product.id
+                                  ..name = product.name
+                                  ..category = product.category
+                                  ..imageURL = product.imageUrl[0]
+                                  ..price = double.parse(product.price);
+
+                                bool isAdded = !wishlistNotifier
+                                    .getFavoriteProductByKey(product.id);
+                                wishlistNotifier.updateData(
+                                    wishlistItem, isAdded);
+                              },
+                              child: wishlistNotifier
+                                      .getFavoriteProductByKey(product.id)
+                                  ? const Icon(
+                                      Icons.favorite,
+                                      color: Colors.red,
+                                      size: Sizes.p36,
+                                    )
+                                  : const Icon(
+                                      Icons.favorite_border_outlined,
+                                      size: Sizes.p36,
+                                    ),
+                            );
+                          }),
                         ),
                         Positioned(
                             bottom: 0,
@@ -235,7 +260,8 @@ class ProductDetails extends StatelessWidget {
                                     cartItem.imageURL = product.imageUrl[context
                                         .read<PageIndicator>()
                                         .pageIndex];
-                                    cartItem.price =double.parse(product.price)  ;
+                                    cartItem.price =
+                                        double.parse(product.price);
                                     cartItem.sizes =
                                         mycustomToggleSwitch.selectedShoesSizes;
                                     cartItem.qty = 1;

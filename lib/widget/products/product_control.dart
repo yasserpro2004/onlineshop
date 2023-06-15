@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:onlineshop/config/constant/app_sizes.dart';
+import 'package:onlineshop/models/models.dart';
 import 'package:onlineshop/provider/providers.dart';
+import 'package:onlineshop/widget/widgets.dart';
 
 abstract class ProductsControl extends StatelessWidget {
   final String productID;
@@ -23,22 +26,18 @@ class WishlistControl extends ProductsControl {
     return Padding(
       padding: const EdgeInsets.all(15),
       child: Align(
-        alignment: Alignment.bottomCenter,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            InkWell(
-              onTap: () {},
-              child: const Icon(Icons.add_circle_rounded),
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            InkWell(
-              onTap: () {},
-              child: const Icon(Icons.delete),
-            )
-          ],
+        alignment: Alignment.center,
+        child: InkWell(
+          onTap: () {
+            final wishlistItem = WishlistItem()
+              ..productID = productID
+              ..name = ''
+              ..category = ''
+              ..imageURL = ''
+              ..price = 0;
+            context.read<WishlistNotifier>().updateData(wishlistItem, false);
+          },
+          child: const Icon(Icons.heart_broken,size: Sizes.p36,),
         ),
       ),
     );
@@ -67,9 +66,10 @@ class CartControl extends ProductsControl {
               },
               child: const Icon(Icons.add_circle_rounded),
             ),
-            Text(
-              ' $productQuantity ',
-            ),
+            LabelWidget(
+                label: ' $productQuantity ',
+                size: Sizes.p18,
+                fontWeight: FontWeight.w600),
             InkWell(
               onTap: () {
                 context.read<CartNotifier>().removeProductCart(productID);

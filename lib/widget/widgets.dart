@@ -14,6 +14,7 @@ export 'products/products_grid.dart';
 export 'products/shoes_size_togglebutton.dart';
 export 'products/product_card.dart';
 export 'products/product_control.dart';
+export 'products/product_card_list.dart';
 
 export 'home/shoes_data.dart';
 

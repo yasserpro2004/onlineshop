@@ -16,6 +16,7 @@ void main() async {
       ChangeNotifierProvider(create: (context) => KidsShoesNotifier()),
       ChangeNotifierProvider(create: (context) => PageIndicator()),
       ChangeNotifierProvider(create: (context) => CartNotifier()),
+      ChangeNotifierProvider(create: (context) => WishlistNotifier()),
     ],
     child: MaterialApp(
       title: 'demo',

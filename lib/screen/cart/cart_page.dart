@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onlineshop/config/constant/app_sizes.dart';
 import 'package:onlineshop/provider/providers.dart';
-import 'package:onlineshop/widget/cart/cart_card.dart';
-
 import '../../widget/widgets.dart';
 
 class CartScreen extends StatelessWidget {
@@ -84,5 +82,3 @@ class CartScreen extends StatelessWidget {
     );
   }
 }
-
-
