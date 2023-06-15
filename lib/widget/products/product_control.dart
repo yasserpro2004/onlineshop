@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import '/../models/models.dart';
+import 'package:onlineshop/provider/providers.dart';
 
 abstract class ProductsControl extends StatelessWidget {
-  final Product product;
+  final String productID;
 
-  const ProductsControl({super.key, required this.product});
+  const ProductsControl({super.key, required this.productID});
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +13,8 @@ abstract class ProductsControl extends StatelessWidget {
 }
 
 class WishlistControl extends ProductsControl {
-  const WishlistControl({super.key, required Product product})
-      : super(product: product);
+  const WishlistControl({super.key, required String productID})
+      : super(productID: productID);
 
   //final ProductModel product;
 
@@ -47,8 +47,8 @@ class WishlistControl extends ProductsControl {
 
 class CartControl extends ProductsControl {
   const CartControl(
-      {super.key, required Product product, required this.productQuantity})
-      : super(product: product);
+      {super.key, required String productID, required this.productQuantity})
+      : super(productID: productID);
 
   final int productQuantity;
 
@@ -62,14 +62,18 @@ class CartControl extends ProductsControl {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             InkWell(
-              onTap: () {},
+              onTap: () {
+                context.read<CartNotifier>().incrementProductInCart(productID);
+              },
               child: const Icon(Icons.add_circle_rounded),
             ),
             Text(
               ' $productQuantity ',
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                context.read<CartNotifier>().removeProductCart(productID);
+              },
               child: const Icon(Icons.remove_circle_rounded),
             )
           ],

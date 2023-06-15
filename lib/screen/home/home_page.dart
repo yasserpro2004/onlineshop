@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onlineshop/config/constant/app_sizes.dart';
-import 'package:provider/provider.dart';
-import '../../config/constant/app_style.dart';
+import '../../config/constant/constants.dart';
 import '../../provider/providers.dart';
 import '../../widget/widgets.dart';
 
@@ -13,7 +12,7 @@ class HomeScreen extends StatelessWidget {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-          backgroundColor: appBackgroundColor,
+          backgroundColor: AppColors.appBackgroundColor,
           body: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: Stack(
@@ -45,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               size: Sizes.p32,
                               fontHeight: 1.5),
-                          gaph12,
+                          GapHeight.gaph12,
                           CustomTabBar(
                             tabs: ['Men Shoes', 'Women Shoes', 'Kids Shoes'],
                             isScrollable: true,

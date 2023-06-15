@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:onlineshop/provider/providers.dart';
 import 'widgets.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:provider/provider.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({super.key});

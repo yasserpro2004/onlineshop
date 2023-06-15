@@ -1,9 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:onlineshop/provider/providers.dart';
-import 'package:provider/provider.dart';
 
 import '../../config/constant/app_sizes.dart';
 import '../../models/models.dart';
@@ -22,25 +20,6 @@ class ProductDetails extends StatelessWidget {
               {required String item, required ValueNotifier<bool> selected}) =>
           ShoesSizeToggleButton(item: item, selected: selected),
     );
-
-    final cartBox = Hive.box('cart_box');
-
-    Future<void> createCart(Map<String, dynamic> newProductCart) async {
-     /*  final cartBox = Hive.box('cart_box');
-      final productId = newProductCart['id'];
-
-      if (cartBox.containsKey(productId)) {
-        // If the product is already in the cart, update its quantity
-        final currentProduct = cartBox.get(productId) as Map<String, dynamic>;
-        final currentQty = currentProduct['qty'] as int;
-        cartBox.put(productId, {...currentProduct, 'qty': currentQty + 1});
-      } else {
-        // If the product is not in the cart, add it with a quantity of 1
-        cartBox.put(productId, {...newProductCart, 'qty': 1});
-      } */
-
-      await cartBox.add(newProductCart);
-    }
 
     return Scaffold(
       body: CustomScrollView(
@@ -165,7 +144,7 @@ class ProductDetails extends StatelessWidget {
                               fontWeight: FontWeight.w500,
                               color: Colors.grey,
                             ),
-                            gaph16,
+                            GapHeight.gaph16,
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -181,12 +160,12 @@ class ProductDetails extends StatelessWidget {
                                       fontWeight: FontWeight.normal,
                                       color: Colors.grey,
                                     ),
-                                    gapw4,
+                                    GapWidth.gapw4,
                                     CircleAvatar(
                                       backgroundColor: Colors.black,
                                       radius: 5,
                                     ),
-                                    gapw4,
+                                    GapWidth.gapw4,
                                     CircleAvatar(
                                       backgroundColor: Colors.grey,
                                       radius: 5,
@@ -195,14 +174,14 @@ class ProductDetails extends StatelessWidget {
                                 )
                               ],
                             ),
-                            gaph12,
+                            GapHeight.gaph12,
                             Row(
                               children: const [
                                 LabelWidget(
                                     label: 'Select a sizes',
                                     size: Sizes.p16,
                                     fontWeight: FontWeight.w600),
-                                gapw16,
+                                GapWidth.gapw16,
                                 LabelWidget(
                                   label: 'View size guide',
                                   size: Sizes.p16,
@@ -211,7 +190,7 @@ class ProductDetails extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            gaph12,
+                            GapHeight.gaph12,
                             SizedBox(
                               height: 40,
                               width: MediaQuery.of(context).size.width,
@@ -223,7 +202,7 @@ class ProductDetails extends StatelessWidget {
                                     mycustomToggleSwitch,
                               ),
                             ),
-                            gaph12,
+                            GapHeight.gaph12,
                             const Divider(
                               indent: 10,
                               endIndent: 10,
@@ -249,16 +228,21 @@ class ProductDetails extends StatelessWidget {
                                   width:
                                       MediaQuery.of(context).size.width * 0.9,
                                   onTap: () async {
-                                    createCart({
-                                      "id": product.id,
-                                      "name": product.name,
-                                      "category": product.category,
-                                      "sizes": mycustomToggleSwitch
-                                          .selectedShoesSizes,
-                                      "imageUrl": product.imageUrl,
-                                      "price": product.price,
-                                      "qty": 1
-                                    });
+                                    final cartItem = CartItem();
+                                    cartItem.id = product.id;
+                                    cartItem.name = product.name;
+                                    cartItem.category = product.category;
+                                    cartItem.imageURL = product.imageUrl[context
+                                        .read<PageIndicator>()
+                                        .pageIndex];
+                                    cartItem.price =double.parse(product.price)  ;
+                                    cartItem.sizes =
+                                        mycustomToggleSwitch.selectedShoesSizes;
+                                    cartItem.qty = 1;
+
+                                    context
+                                        .read<CartNotifier>()
+                                        .updateCart(cartItem);
                                     Navigator.of(context).pop();
                                     if (kDebugMode) {
                                       print(mycustomToggleSwitch

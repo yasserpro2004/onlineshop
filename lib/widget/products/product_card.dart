@@ -90,7 +90,7 @@ class ProductCard extends StatelessWidget {
                                     fontSize: Sizes.p18,
                                     fontWeight: FontWeight.w500),
                               ),
-                              gapw4,
+                              GapWidth.gapw4,
                               ChoiceChip(
                                 label: const Text(" "),
                                 selected: selected,

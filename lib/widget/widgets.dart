@@ -16,3 +16,5 @@ export 'products/product_card.dart';
 export 'products/product_control.dart';
 
 export 'home/shoes_data.dart';
+
+export 'cart/cart_sammary.dart';

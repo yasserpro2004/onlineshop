@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onlineshop/config/constant/app_sizes.dart';
-import 'package:onlineshop/config/constant/app_style.dart';
-import 'package:provider/provider.dart';
+import 'package:onlineshop/config/constant/constants.dart';
 import '../../widget/widgets.dart';
 import '../../provider/providers.dart';
 
@@ -15,7 +14,7 @@ class ProductsByCategory extends StatelessWidget {
       initialIndex: tapIndex,
       length: 3,
       child: Scaffold(
-          backgroundColor: appBackgroundColor,
+          backgroundColor: AppColors.appBackgroundColor,
           body: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: Stack(
@@ -51,7 +50,7 @@ class ProductsByCategory extends StatelessWidget {
                           ],
                         ),
                       ),
-                      gaph20,
+                      GapHeight.gaph20,
                       const CustomTabBar(
                         tabs: ['Men Shoes', 'Women Shoes', 'Kids Shoes'],
                         isScrollable: true,
@@ -135,7 +134,7 @@ Future<dynamic> filter(BuildContext context) {
           ),
         ),
         child: Column(children: [
-          gaph12,
+          GapHeight.gaph12,
           Container(
             height: 5,
             width: 40,
@@ -145,17 +144,17 @@ Future<dynamic> filter(BuildContext context) {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.7,
             child: Column(children: [
-              gaph24,
+              GapHeight.gaph24,
               const LabelWidget(
                   label: 'Filter',
                   size: Sizes.p40,
                   fontWeight: FontWeight.bold),
-              gaph24,
+              GapHeight.gaph24,
               const LabelWidget(
                   label: 'Gender',
                   size: Sizes.p20,
                   fontWeight: FontWeight.bold),
-              gaph20,
+              GapHeight.gaph20,
               Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: const [
@@ -163,12 +162,12 @@ Future<dynamic> filter(BuildContext context) {
                     SwitcherButton(lbl: 'Women', btnColor: Colors.grey),
                     SwitcherButton(lbl: 'Kids', btnColor: Colors.grey),
                   ]),
-              gaph24,
+              GapHeight.gaph24,
               const LabelWidget(
                   label: 'Category',
                   size: Sizes.p20,
                   fontWeight: FontWeight.w600),
-              gaph20,
+              GapHeight.gaph20,
               Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: const [
@@ -176,7 +175,7 @@ Future<dynamic> filter(BuildContext context) {
                     SwitcherButton(lbl: 'Appareles', btnColor: Colors.grey),
                     SwitcherButton(lbl: 'Accessories', btnColor: Colors.grey),
                   ]),
-              gaph20,
+              GapHeight.gaph20,
               const LabelWidget(
                   label: 'Price', size: Sizes.p20, fontWeight: FontWeight.w600),
               Slider(
@@ -190,10 +189,10 @@ Future<dynamic> filter(BuildContext context) {
                 value: value,
                 onChanged: (value) {},
               ),
-              gaph24,
+              GapHeight.gaph24,
               const LabelWidget(
                   label: 'Brand', size: Sizes.p20, fontWeight: FontWeight.w600),
-              gaph20,
+              GapHeight.gaph20,
               Container(
                 padding: const EdgeInsets.all(8),
                 height: 80,

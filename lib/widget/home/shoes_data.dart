@@ -3,7 +3,7 @@ import 'package:onlineshop/screen/products/product_by_cat.dart';
 import 'package:onlineshop/widget/widgets.dart';
 import '../../models/models.dart';
 import '../../config/constant/app_sizes.dart';
-import '../../config/constant/app_style.dart';
+import '../../config/constant/constants.dart';
 
 class ShoesData extends StatelessWidget {
   final List<Product> data;

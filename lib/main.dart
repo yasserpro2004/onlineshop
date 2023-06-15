@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:onlineshop/databases/hive_database.dart';
 import 'package:onlineshop/provider/providers.dart';
 import 'package:onlineshop/screen/screens.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Hive.initFlutter();
-  await Hive.openBox('cart_box');
-  await Hive.openBox('fav_box');
+  await HiveDatabase.init();
 
   runApp(MultiProvider(
     providers: [

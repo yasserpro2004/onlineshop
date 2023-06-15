@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onlineshop/provider/providers.dart';
-import '../../config/constant/app_style.dart';
+import '../../config/constant/constants.dart';
 import '../screens.dart';
-import 'package:provider/provider.dart';
 import '../../widget/widgets.dart';
 
 class MainScreen extends StatelessWidget {
@@ -21,7 +20,7 @@ class MainScreen extends StatelessWidget {
     return Consumer<MainScreenNotifier>(
       builder: (context, mainScreenNotifier, child) {
         return Scaffold(
-          backgroundColor: appBackgroundColor,
+          backgroundColor: AppColors.appBackgroundColor,
           body: pageList[mainScreenNotifier.pageIndex],
           bottomNavigationBar: const BottomNavBar(),
         );

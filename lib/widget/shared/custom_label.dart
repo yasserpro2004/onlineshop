@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../config/constant/app_style.dart';
+import '../../config/constant/constants.dart';
 
 class LabelWidget extends StatelessWidget {
   final String label;
