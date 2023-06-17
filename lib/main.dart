@@ -10,13 +10,11 @@ void main() async {
 
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (context) => MainScreenNotifier()),
-      ChangeNotifierProvider(create: (context) => MenShoesNotifier()),
-      ChangeNotifierProvider(create: (context) => WomenShoesNotifier()),
-      ChangeNotifierProvider(create: (context) => KidsShoesNotifier()),
-      ChangeNotifierProvider(create: (context) => PageIndicator()),
+      ChangeNotifierProvider(create: (context) => DataProvider()),
       ChangeNotifierProvider(create: (context) => CartNotifier()),
       ChangeNotifierProvider(create: (context) => WishlistNotifier()),
+      ChangeNotifierProvider(create: (context) => MainScreenNotifier()),
+      ChangeNotifierProvider(create: (context) => PageIndicator()),
     ],
     child: MaterialApp(
       title: 'demo',

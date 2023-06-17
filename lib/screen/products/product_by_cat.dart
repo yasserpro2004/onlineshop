@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onlineshop/config/constant/app_sizes.dart';
 import 'package:onlineshop/config/constant/constants.dart';
+import '../../models/models.dart';
 import '../../widget/widgets.dart';
 import '../../provider/providers.dart';
 
@@ -10,6 +11,15 @@ class ProductsByCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final maleShoes = context
+        .select<DataProvider, MaleShoesModel>((provider) => provider.maleShoes);
+
+    final femaleShoes = context.select<DataProvider, FemaleShoesModel>(
+        (provider) => provider.femaleShoes);
+
+    final kidsShoes = context
+        .select<DataProvider, KidsShoesModel>((provider) => provider.kidsShoes);
+
     return DefaultTabController(
       initialIndex: tapIndex,
       length: 3,
@@ -71,40 +81,9 @@ class ProductsByCategory extends StatelessWidget {
                       right: 15),
                   child: TabBarView(
                     children: [
-                      Consumer<MenShoesNotifier>(
-                        builder: (context, menShoesNotifier, child) {
-                          if (menShoesNotifier.menProducts.isEmpty) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          } else {
-                            return ProductsGrid(
-                                data: menShoesNotifier.menProducts);
-                          }
-                        },
-                      ),
-                      Consumer<WomenShoesNotifier>(
-                        builder: (context, womenShoesNotifier, child) {
-                          if (womenShoesNotifier.womenProducts.isEmpty) {
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          } else {
-                            return ProductsGrid(
-                                data: womenShoesNotifier.womenProducts);
-                          }
-                        },
-                      ),
-                      Consumer<KidsShoesNotifier>(
-                        builder: (context, kidsShoesNotifier, child) {
-                          if (kidsShoesNotifier.kidsProducts.isEmpty) {
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          } else {
-                            return ProductsGrid(
-                                data: kidsShoesNotifier.kidsProducts);
-                          }
-                        },
-                      ),
+                      ProductsGrid(data: maleShoes.products),
+                      ProductsGrid(data: femaleShoes.products),
+                      ProductsGrid(data: kidsShoes.products),
                     ],
                   ),
                 )

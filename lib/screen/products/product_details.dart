@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:onlineshop/provider/providers.dart';
 
@@ -96,12 +95,13 @@ class ProductDetails extends StatelessWidget {
                                   ..price = double.parse(product.price);
 
                                 bool isAdded = !wishlistNotifier
-                                    .getFavoriteProductByKey(product.id);
+                                    .wishlistProducts
+                                    .containsKey(product.id);
                                 wishlistNotifier.updateData(
                                     wishlistItem, isAdded);
                               },
-                              child: wishlistNotifier
-                                      .getFavoriteProductByKey(product.id)
+                              child: wishlistNotifier.wishlistProducts
+                                      .containsKey(product.id)
                                   ? const Icon(
                                       Icons.favorite,
                                       color: Colors.red,
@@ -253,27 +253,19 @@ class ProductDetails extends StatelessWidget {
                                   width:
                                       MediaQuery.of(context).size.width * 0.9,
                                   onTap: () async {
-                                    final cartItem = CartItem();
-                                    cartItem.id = product.id;
-                                    cartItem.name = product.name;
-                                    cartItem.category = product.category;
-                                    cartItem.imageURL = product.imageUrl[context
-                                        .read<PageIndicator>()
-                                        .pageIndex];
-                                    cartItem.price =
-                                        double.parse(product.price);
-                                    cartItem.sizes =
-                                        mycustomToggleSwitch.selectedShoesSizes;
-                                    cartItem.qty = 1;
-
+                                    final cartItem = CartItem()
+                                      ..id = product.id
+                                      ..name = product.name
+                                      ..category = product.category
+                                      ..imageURL = product.imageUrl[0]
+                                      ..price = double.parse(product.price)
+                                      ..sizes = mycustomToggleSwitch
+                                          .selectedShoesSizes
+                                      ..qty = 1;
                                     context
                                         .read<CartNotifier>()
                                         .updateCart(cartItem);
                                     Navigator.of(context).pop();
-                                    if (kDebugMode) {
-                                      print(mycustomToggleSwitch
-                                          .selectedShoesSizes);
-                                    }
                                   },
                                 ),
                               ),

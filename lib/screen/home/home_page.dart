@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onlineshop/config/constant/app_sizes.dart';
+import '../../models/models.dart';
 import '../../config/constant/constants.dart';
 import '../../provider/providers.dart';
 import '../../widget/widgets.dart';
@@ -9,6 +10,15 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final maleShoes = context
+        .select<DataProvider, MaleShoesModel>((provider) => provider.maleShoes);
+
+    final femaleShoes = context.select<DataProvider, FemaleShoesModel>(
+        (provider) => provider.femaleShoes);
+
+    final kidsShoes = context
+        .select<DataProvider, KidsShoesModel>((provider) => provider.kidsShoes);
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -63,7 +73,20 @@ class HomeScreen extends StatelessWidget {
                       top: MediaQuery.of(context).size.height * 0.265),
                   child: TabBarView(
                     children: [
-                      Consumer<MenShoesNotifier>(
+/*                       Builder(builder: (context) {
+                        if (maleShoes.isLoaded) {
+                          return ShoesData(
+                              data: maleShoes.products, tapIndex: 0);
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      }),
+                      ShoesData(data: femaleShoes.products, tapIndex: 1),
+                      ShoesData(data: kidsShoes.products, tapIndex: 2), */
+
+                     /*  Consumer<MenShoesNotifier>(
                         builder: (context, menShoesNotifier, child) {
                           if (menShoesNotifier.menProducts.isEmpty) {
                             return const Center(
@@ -74,8 +97,10 @@ class HomeScreen extends StatelessWidget {
                                 tapIndex: 0);
                           }
                         },
-                      ),
-                      Consumer<WomenShoesNotifier>(
+                      ), */
+                      ShoesData(data: maleShoes.products, tapIndex: 0),
+                      ShoesData(data: femaleShoes.products, tapIndex: 1)
+                      /* Consumer<WomenShoesNotifier>(
                           builder: (context, womenShoesNotifier, child) {
                         if (womenShoesNotifier.womenProducts.isEmpty) {
                           return const Center(
@@ -85,8 +110,10 @@ class HomeScreen extends StatelessWidget {
                               data: womenShoesNotifier.womenProducts,
                               tapIndex: 1);
                         }
-                      }),
-                      Consumer<KidsShoesNotifier>(
+                      }) */
+                      ,
+                      ShoesData(data: kidsShoes.products, tapIndex: 2)
+                      /* Consumer<KidsShoesNotifier>(
                           builder: (context, kidsShoesNotifier, child) {
                         if (kidsShoesNotifier.kidsProducts.isEmpty) {
                           return const Center(
@@ -96,7 +123,8 @@ class HomeScreen extends StatelessWidget {
                               data: kidsShoesNotifier.kidsProducts,
                               tapIndex: 2);
                         }
-                      }),
+                      }) */
+                      ,
                     ],
                   ),
                 )

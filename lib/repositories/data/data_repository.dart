@@ -1,26 +1,30 @@
 import 'package:flutter/services.dart' as the_bundle;
 import 'package:onlineshop/models/models.dart';
 
-class Helper {
-  Future<List<Product>> fetchMaleSneakers() async {
+class DataRepository {
+  Future<MaleShoesModel> fetchMaleSneakers() async {
     final data =
         await the_bundle.rootBundle.loadString('assets/json/men_shoes.json');
     final myList = productFromJson(data);
-    return myList;
+    final MaleShoesModel maleShoesModel = MaleShoesModel()..products = myList;
+    return maleShoesModel;
   }
 
-  Future<List<Product>> fetchFemaleSneakers() async {
+  Future<FemaleShoesModel> fetchFemaleSneakers() async {
     final data =
         await the_bundle.rootBundle.loadString('assets/json/women_shoes.json');
     final myList = productFromJson(data);
-    return myList;
+    final FemaleShoesModel femaleShoesModel = FemaleShoesModel()
+      ..products = myList;
+    return femaleShoesModel;
   }
 
-  Future<List<Product>> fetchKidsSneakers() async {
-      final data =
-          await the_bundle.rootBundle.loadString('assets/json/kids_shoes.json');
-      final myList = productFromJson(data);
-      return myList;
+  Future<KidsShoesModel> fetchKidsSneakers() async {
+    final data =
+        await the_bundle.rootBundle.loadString('assets/json/kids_shoes.json');
+    final myList = productFromJson(data);
+    final KidsShoesModel kidsShoesModel = KidsShoesModel()..products = myList;
+    return kidsShoesModel;
   }
 
   Future<Product> getMaleSneakersByID(String id) async {

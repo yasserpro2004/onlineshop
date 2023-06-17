@@ -24,7 +24,7 @@ class WishlistNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool getFavoriteProductByKey(String productID) {
+/*   bool getFavoriteProductByKey(String productID) {
     return _wishlistProducts.containsKey(productID);
-  }
+  } */
 }
