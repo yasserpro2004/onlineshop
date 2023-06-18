@@ -6,7 +6,9 @@ class DataRepository {
     final data =
         await the_bundle.rootBundle.loadString('assets/json/men_shoes.json');
     final myList = productFromJson(data);
-    final MaleShoesModel maleShoesModel = MaleShoesModel()..products = myList;
+    final MaleShoesModel maleShoesModel = MaleShoesModel()
+      ..products = myList
+      ..isLoaded = true;
     return maleShoesModel;
   }
 
@@ -15,7 +17,8 @@ class DataRepository {
         await the_bundle.rootBundle.loadString('assets/json/women_shoes.json');
     final myList = productFromJson(data);
     final FemaleShoesModel femaleShoesModel = FemaleShoesModel()
-      ..products = myList;
+      ..products = myList
+      ..isLoaded=true;
     return femaleShoesModel;
   }
 
@@ -23,7 +26,9 @@ class DataRepository {
     final data =
         await the_bundle.rootBundle.loadString('assets/json/kids_shoes.json');
     final myList = productFromJson(data);
-    final KidsShoesModel kidsShoesModel = KidsShoesModel()..products = myList;
+    final KidsShoesModel kidsShoesModel = KidsShoesModel()
+    ..products = myList
+    ..isLoaded=true;
     return kidsShoesModel;
   }
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:onlineshop/config/constant/app_sizes.dart';
-import '../../models/models.dart';
 import '../../config/constant/constants.dart';
 import '../../provider/providers.dart';
 import '../../widget/widgets.dart';
@@ -10,15 +9,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final maleShoes = context
-        .select<DataProvider, MaleShoesModel>((provider) => provider.maleShoes);
-
-    final femaleShoes = context.select<DataProvider, FemaleShoesModel>(
-        (provider) => provider.femaleShoes);
-
-    final kidsShoes = context
-        .select<DataProvider, KidsShoesModel>((provider) => provider.kidsShoes);
-
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -71,61 +61,27 @@ class HomeScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.265),
-                  child: TabBarView(
-                    children: [
-/*                       Builder(builder: (context) {
-                        if (maleShoes.isLoaded) {
-                          return ShoesData(
-                              data: maleShoes.products, tapIndex: 0);
-                        } else {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                      }),
-                      ShoesData(data: femaleShoes.products, tapIndex: 1),
-                      ShoesData(data: kidsShoes.products, tapIndex: 2), */
-
-                     /*  Consumer<MenShoesNotifier>(
-                        builder: (context, menShoesNotifier, child) {
-                          if (menShoesNotifier.menProducts.isEmpty) {
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          } else {
-                            return ShoesData(
-                                data: menShoesNotifier.menProducts,
-                                tapIndex: 0);
-                          }
-                        },
-                      ), */
-                      ShoesData(data: maleShoes.products, tapIndex: 0),
-                      ShoesData(data: femaleShoes.products, tapIndex: 1)
-                      /* Consumer<WomenShoesNotifier>(
-                          builder: (context, womenShoesNotifier, child) {
-                        if (womenShoesNotifier.womenProducts.isEmpty) {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        } else {
-                          return ShoesData(
-                              data: womenShoesNotifier.womenProducts,
-                              tapIndex: 1);
-                        }
-                      }) */
-                      ,
-                      ShoesData(data: kidsShoes.products, tapIndex: 2)
-                      /* Consumer<KidsShoesNotifier>(
-                          builder: (context, kidsShoesNotifier, child) {
-                        if (kidsShoesNotifier.kidsProducts.isEmpty) {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        } else {
-                          return ShoesData(
-                              data: kidsShoesNotifier.kidsProducts,
-                              tapIndex: 2);
-                        }
-                      }) */
-                      ,
-                    ],
+                  child: Consumer<DataProvider>(
+                    builder: (context, data, child) {
+                      if (data.femaleShoes.isLoaded &&
+                          data.maleShoes.isLoaded &&
+                          data.kidsShoes.isLoaded) {
+                        return TabBarView(
+                          children: [
+                            ShoesData(
+                                data: data.maleShoes.products, tapIndex: 0),
+                            ShoesData(
+                                data: data.femaleShoes.products, tapIndex: 1),
+                            ShoesData(
+                                data: data.kidsShoes.products, tapIndex: 2),
+                          ],
+                        );
+                      } else {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
                   ),
                 )
               ],
